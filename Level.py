@@ -100,4 +100,5 @@ while window_open:
     pygame.display.flip()
     clock.tick(30)
 #zmieniam cos
+#moja inna zmiana hehe
 pygame.quit()
