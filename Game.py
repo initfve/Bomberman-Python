@@ -38,6 +38,7 @@ class Game:
 
             # rysowanie i aktualizacja obiektów
             self.player.update()
+            self.current_level.update()
             self.player.draw(self.screen)
             self.current_level.draw(self.screen)
 

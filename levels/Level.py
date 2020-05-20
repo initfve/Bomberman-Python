@@ -6,11 +6,8 @@ class Level:
         self.player = player
 
     def update(self):
-        for p in self.set_of_squares:
-            p.update()
-        for p in self.set_of_obstacles:
-            p.update()
         for p in self.set_of_monsters:
+            p.level = self
             p.update()
 
     def draw(self, surface):

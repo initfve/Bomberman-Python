@@ -46,6 +46,10 @@ class Level1(Level):
 
         # dodawanie jakichś potworków
         spare_fields = self._random_empty_list(self.list_diff(temp_spare_fields, spare_fields), self.monster_max_count)
+        # print(spare_fields)
+        # for field in spare_fields:
+        #     field[2] += 20
+        # print(spare_fields)
         self.append_model(self.set_of_monsters, spare_fields, gm.MONSTER_STAND_L[0], 'monster')
         # for field in spare_fields:
         #     border_object = Monster(gm.MONSTER_STAND_L[0], 1, *field)
