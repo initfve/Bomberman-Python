@@ -2,6 +2,7 @@ class Level:
     def __init__(self, player):
         self.set_of_squares = set()
         self.set_of_obstacles = set()
+        self.set_of_monsters = set()
         self.player = player
 
     def update(self):
