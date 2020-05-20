@@ -56,3 +56,7 @@ MONSTER_STAND_R = [PIG]
 # grafika bomb
 BOMB_SET = [BOMB_SET1]
 FIRE_SET = []
+
+# drzwi
+
+LEVEL_DOORS = [DOORS]
