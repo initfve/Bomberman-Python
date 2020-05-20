@@ -75,8 +75,6 @@ class Monster(pygame.sprite.Sprite):
                 and self.rect.x > gm.SQUARE_SIZE \
                 and self.rect.x % gm.SQUARE_SIZE == 0 \
                 and self.movementX != 0:
-            ch = choice([True, False])
-            print(ch)
-            return ch
+            return choice([True, False])
 
         return False
