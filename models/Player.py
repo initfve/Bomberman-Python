@@ -2,6 +2,7 @@ import pygame
 import game_config as gm
 import Bomb as bomb
 
+
 # Klasa gracza
 class Player(pygame.sprite.Sprite):
     def __init__(self, file_image):
@@ -22,38 +23,34 @@ class Player(pygame.sprite.Sprite):
     def turn_right(self):
         if self.direction_of_movement == 'left' or 'up':
             self.direction_of_movement = 'right'
-        self.movement_x = 9*(self.player_level*0.75)
+        self.movement_x = 9 * (self.player_level * 0.75)
 
     def turn_left(self):
         if self.direction_of_movement == 'right' or 'up':
             self.direction_of_movement = 'left'
-        self.movement_x = -9*(self.player_level*0.75)
+        self.movement_x = -9 * (self.player_level * 0.75)
 
     def go_up(self):
-        self.movement_y = -9*(self.player_level*0.75)
+        self.movement_y = -9 * (self.player_level * 0.75)
 
     def go_down(self):
-        self.movement_y = 9*(self.player_level*0.75)
+        self.movement_y = 9 * (self.player_level * 0.75)
 
     def stop(self):
         self.movement_x = 0
         self.movement_y = 0
 
     def set_bomb(self):
-        if self.n_bomb > 0 :
+        if self.n_bomb > 0:
             self.n_bomb -= 1
 
-
-
-
-
     def update(self):
-        self.rect.x += self.movement_x #odpowiada za ruch na osi x
+        self.rect.x += self.movement_x  # odpowiada za ruch na osi x
         self.rect.y += self.movement_y  # odpowiada za ruch na osi y
-        #------------KOLIZJA---------------------------
+        # ------------KOLIZJA---------------------------
         ##collids= []
         colliding_obstacles = pygame.sprite.spritecollide(self, self.level.set_of_obstacles, False)
-        colliding_squares=  pygame.sprite.spritecollide(self, self.level.set_of_squares, False)
+        colliding_squares = pygame.sprite.spritecollide(self, self.level.set_of_squares, False)
         ##collids.append(colliding_squares)
 
         for p in colliding_obstacles:
@@ -84,13 +81,13 @@ class Player(pygame.sprite.Sprite):
             if self.movement_y < 0:
                 self.rect.top = p.rect.bottom
 
-        if self.movement_x > 0: #prawo
+        if self.movement_x > 0:  # prawo
             self._move(gm.IMAGES_R)
 
-        if self.movement_x < 0: #lewo
+        if self.movement_x < 0:  # lewo
             self._move(gm.IMAGES_L)
 
-        if self.movement_y < 0: #gora
+        if self.movement_y < 0:  # gora
             self._move(gm.IMAGES_UP)
 
         if self.movement_y > 0:
@@ -140,5 +137,3 @@ class Player(pygame.sprite.Sprite):
             self._count = 0
         else:
             self._count += 1
-
-

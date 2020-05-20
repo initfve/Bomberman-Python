@@ -46,15 +46,8 @@ class Level1(Level):
 
         # dodawanie jakichś potworków
         spare_fields = self._random_empty_list(self.list_diff(temp_spare_fields, spare_fields), self.monster_max_count)
-        # print(spare_fields)
-        # for field in spare_fields:
-        #     field[2] += 20
-        # print(spare_fields)
         self.append_model(self.set_of_monsters, spare_fields, gm.MONSTER_STAND_L[0], 'monster')
-        # for field in spare_fields:
-        #     border_object = Monster(gm.MONSTER_STAND_L[0], 1, *field)
-        #     self.set_of_monsters.add(border_object)
-        # print(spare_fields)
+
 
     # funkcja usuwajaca losowa ilosc elementow z listy
     def _random_empty_list(self, source_list, desired_length):
@@ -63,6 +56,7 @@ class Level1(Level):
     def list_diff(level, first_list, second_list):
         return [x for x in first_list if x not in second_list]
 
+    # wypełniamy planszę modelami
     def append_model(self, models_set, fields_list, texture, object_type):
         if object_type == 'monster':
             for field in fields_list:

@@ -29,8 +29,12 @@ class Monster(pygame.sprite.Sprite):
 
         colliding_obstacles = pygame.sprite.spritecollide(self, self.level.set_of_obstacles, False)
         colliding_squares = pygame.sprite.spritecollide(self, self.level.set_of_squares, False)
+        colliding_player = pygame.sprite.spritecollide(self, {self.level.player}, False)
 
-        self._define_direction([colliding_obstacles, colliding_squares])
+        if colliding_player:
+            self.level.running = False
+
+        self._define_direction([colliding_obstacles, colliding_squares, colliding_player])
 
         for p in (colliding_obstacles + colliding_squares):
             if self.movementX > 0:
