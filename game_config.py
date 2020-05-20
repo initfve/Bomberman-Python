@@ -52,3 +52,7 @@ MONSTERS_PIG = []
 
 MONSTER_STAND_L = [MONKEY]
 MONSTER_STAND_R = [PIG]
+
+# grafika bomb
+BOMB_SET = [BOMB_SET1]
+FIRE_SET = []
