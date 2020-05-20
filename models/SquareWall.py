@@ -1,3 +1,4 @@
+# Klasa bazowa naszych obiektow/scian
 class SquareWall:
     def __init__(self, file_image, side, rect_x, rect_y):
         super().__init__()

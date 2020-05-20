@@ -1,8 +1,8 @@
-import pygame, os
-import game_module as gm
+import pygame
+import game_config as gm
 
-from Border import Border
 
+# Klasa gracza
 class Player(pygame.sprite.Sprite):
     def __init__(self, file_image):
         super().__init__()

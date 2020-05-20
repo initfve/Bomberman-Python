@@ -1,4 +1,6 @@
-import pygame, os
+import os
+import pygame
+
 pygame.init()
 
 # kolory
