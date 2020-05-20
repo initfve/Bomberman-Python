@@ -1,4 +1,6 @@
-import pygame, os
+import os
+import pygame
+
 pygame.init()
 
 # kolory
@@ -47,6 +49,9 @@ IMAGES_DOWN = [DOWN_R,DOWN_L]
 MONSTERS_ELEPHANT = []
 MONSTERS_MONKEY = []
 MONSTERS_PIG = []
+
+MONSTER_STAND_L = [MONKEY]
+MONSTER_STAND_R = [PIG]
 
 # grafika bomb
 BOMB_SET = [BOMB_SET1]

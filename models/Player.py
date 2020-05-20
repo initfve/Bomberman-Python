@@ -1,7 +1,8 @@
-import pygame, os
-import game_module as gm
+import pygame
+import game_config as gm
 import Bomb as bomb
 
+# Klasa gracza
 class Player(pygame.sprite.Sprite):
     def __init__(self, file_image):
         super().__init__()
