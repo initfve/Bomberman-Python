@@ -56,6 +56,7 @@ class Level1(Level):
     def list_diff(level, first_list, second_list):
         return [x for x in first_list if x not in second_list]
 
+    # wypełniamy planszę modelami
     def append_model(self, models_set, fields_list, texture, object_type):
         if object_type == 'monster':
             for field in fields_list:
