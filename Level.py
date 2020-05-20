@@ -99,6 +99,7 @@ while window_open:
     # aktualizacja okna pygame
     pygame.display.flip()
     clock.tick(30)
-#zmieniam cos
-#moja inna zmiana hehe
+
+
+
 pygame.quit()

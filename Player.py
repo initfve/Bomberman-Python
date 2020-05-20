@@ -1,7 +1,6 @@
 import pygame, os
 import game_module as gm
-
-from Border import Border
+import Bomb as bomb
 
 class Player(pygame.sprite.Sprite):
     def __init__(self, file_image):
@@ -20,23 +19,19 @@ class Player(pygame.sprite.Sprite):
         self.direction_of_movement = 'right'
 
     def turn_right(self):
-        if self.direction_of_movement == 'left' or 'up' or 'down':
+        if self.direction_of_movement == 'left' or 'up':
             self.direction_of_movement = 'right'
         self.movement_x = 9*(self.player_level*0.75)
 
     def turn_left(self):
-        if self.direction_of_movement == 'right' or 'up' or 'down':
+        if self.direction_of_movement == 'right' or 'up':
             self.direction_of_movement = 'left'
         self.movement_x = -9*(self.player_level*0.75)
 
     def go_up(self):
-        if self.direction_of_movement == 'left' or 'right' or 'down':
-            self.direction_of_movement = 'up'
         self.movement_y = -9*(self.player_level*0.75)
 
     def go_down(self):
-        if self.direction_of_movement == 'left' or 'up' or 'right':
-            self.direction_of_movement = 'down'
         self.movement_y = 9*(self.player_level*0.75)
 
     def stop(self):
@@ -44,7 +39,10 @@ class Player(pygame.sprite.Sprite):
         self.movement_y = 0
 
     def set_bomb(self):
-        self.n_bomb -= 1
+        if self.n_bomb > 0 :
+            self.n_bomb -= 1
+
+
 
 
 
