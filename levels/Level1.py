@@ -4,6 +4,7 @@ import game_config as gm
 # import modeli i klasy bazowej level
 from levels.Level import Level
 from models.Border import Border
+from models.Doors import Doors
 from models.Monster import Monster
 from models.Obstacle import Obstacle
 
@@ -44,10 +45,12 @@ class Level1(Level):
         # tutaj wstawiamy destrukcyjne obiekty typu Obstacle
         self.append_model(self.set_of_obstacles, spare_fields, gm.PLATFORM_CELLS[1], 'obstacle')
 
+        # dodawanie drzwi
+        self.doors = Doors(gm.LEVEL_DOORS[0], *random.choice(spare_fields))
+
         # dodawanie jakichś potworków
         spare_fields = self._random_empty_list(self.list_diff(temp_spare_fields, spare_fields), self.monster_max_count)
         self.append_model(self.set_of_monsters, spare_fields, gm.MONSTER_STAND_L[0], 'monster')
-
 
     # funkcja usuwajaca losowa ilosc elementow z listy
     def _random_empty_list(self, source_list, desired_length):
@@ -71,4 +74,3 @@ class Level1(Level):
             for field in fields_list:
                 border_object = Border(texture, *field)
                 models_set.add(border_object)
-
