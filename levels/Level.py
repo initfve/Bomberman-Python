@@ -4,6 +4,7 @@ class Level:
         self.set_of_obstacles = set()
         self.set_of_monsters = set()
         self.player = player
+        self.running = True
 
     def update(self):
         for p in self.set_of_monsters:

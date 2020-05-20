@@ -46,6 +46,10 @@ class Game:
             pygame.display.flip()
             self.clock.tick(30)
 
+            # koniec gry jak nas monster zlapie np.
+            if not self.current_level.running:
+                window_open = False
+
         pygame.quit()
 
 
