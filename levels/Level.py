@@ -10,9 +10,13 @@ class Level:
             p.update()
         for p in self.set_of_obstacles:
             p.update()
+        for p in self.set_of_monsters:
+            p.update()
 
     def draw(self, surface):
         for p in self.set_of_squares:
             p.draw(surface)
         for p in self.set_of_obstacles:
+            p.draw(surface)
+        for p in self.set_of_monsters:
             p.draw(surface)
