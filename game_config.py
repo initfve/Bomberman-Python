@@ -36,7 +36,7 @@ for file_name in file_names:
     globals().__setitem__(image_name, pygame.image.load(
         os.path.join('png', file_name)).convert_alpha(BACKGROUND))
 
-# grafika postać
+# grafika terenu
 PLATFORM_CELLS = [GROUND_06, CRATE_01]
 
 # grafika postać
@@ -54,8 +54,8 @@ MONSTER_STAND_L = [MONKEY]
 MONSTER_STAND_R = [PIG]
 
 # grafika bomb
-BOMB_SET = [BOMB_SET1]
-FIRE_SET = []
+BOMB_ITEM = [BOMB_SET1]
+FIRE_ITEM = []
 
 # drzwi
 
