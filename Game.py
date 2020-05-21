@@ -25,7 +25,7 @@ class Game:
         # głowna pętla gry
         window_open = True
         while window_open:
-            self.screen.fill(gm.LIGHTBLUE)
+            self.screen.blit(gm.BACKGROUND,[0,0])
             # pętla zdarzeń
             for event in pygame.event.get():
                 if event.type == pygame.KEYDOWN:
