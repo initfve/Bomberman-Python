@@ -2,6 +2,7 @@ import os
 import pygame
 import game_config as gm
 
+
 from models.Player import Player
 from levels.Level1 import Level1
 

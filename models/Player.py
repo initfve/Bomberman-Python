@@ -1,6 +1,6 @@
 import pygame
 import game_config as gm
-import Bomb as bomb
+
 
 
 # Klasa gracza
