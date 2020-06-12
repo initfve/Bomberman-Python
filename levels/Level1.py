@@ -7,6 +7,7 @@ from models.Border import Border
 from models.Doors import Doors
 from models.Monster import Monster
 from models.Obstacle import Obstacle
+from models.Bomb import Bomb
 
 
 class Level1(Level):

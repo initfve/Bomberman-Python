@@ -1,6 +1,7 @@
 import pygame
+import time
 import game_config as gm
-
+from models.Bomb import Bomb
 
 
 # Klasa gracza
@@ -13,7 +14,7 @@ class Player(pygame.sprite.Sprite):
         self.movement_x = 0
         self.movement_y = 0
         self._count = 0
-        self.n_bomb = 1
+        self.n_bomb = 5
         self.player_level = 1
         self.lifes = 3
         self.score = 0
@@ -43,6 +44,16 @@ class Player(pygame.sprite.Sprite):
     def set_bomb(self):
         if self.n_bomb > 0:
             self.n_bomb -= 1
+            bomb = Bomb(gm.BOMB_ITEM[0],self.rect.centerx,self.rect.centery)
+            self.level.set_of_bombs.add(bomb)
+            if bomb.time_life == 0:
+                bomb.kill()
+
+
+
+
+
+
 
     def update(self):
         self.rect.x += self.movement_x  # odpowiada za ruch na osi x
@@ -112,7 +123,7 @@ class Player(pygame.sprite.Sprite):
                 self.stop()
                 self.go_down()
             if event.key == pygame.K_SPACE:
-                self.stop()
+                self.set_bomb()
         elif event.type == pygame.KEYUP:
             if event.key == pygame.K_d and self.movement_x > 0:
                 self.stop()
