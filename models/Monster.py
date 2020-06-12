@@ -20,6 +20,7 @@ class Monster(pygame.sprite.Sprite):
         self.side = side
         self.rect.x = rect_x
         self.rect.y = rect_y
+        self._animation_frame = 0
 
     def update(self, *args):
         self._move(self.direction, 4)
@@ -54,6 +55,22 @@ class Monster(pygame.sprite.Sprite):
 
     # direction should be f. e. { x: 1, y: 1} is right, down, { x: -1, y: -1} is left, up
     def _move(self, direction, speed):
+        if self._animation_frame == 0:
+            self.image = gm.MONSTER[0]
+        elif self._animation_frame == 1:
+            self.image = gm.MONSTER[1]
+        elif self._animation_frame == 2:
+            self.image = gm.MONSTER[1]
+        elif self._animation_frame == 3:
+            self.image = gm.MONSTER[1]
+        elif self._animation_frame == 4:
+            self.image = gm.MONSTER[1]
+
+        if self._animation_frame == 4:
+            self._animation_frame = 0
+        else:
+            self._animation_frame += 1
+
         dx, dy = direction
         self.movementX = dx * speed
         self.movementY = dy * speed
