@@ -8,7 +8,7 @@ from models.Explosion import Explosion
 class Player(pygame.sprite.Sprite):
     def __init__(self, file_image):
         super().__init__()
-        self.image = file_image
+        self.image = pygame.transform.scale(file_image, (42, 50))
         self.rect = self.image.get_rect()
         self.items = {}
         self.movement_x = 0
@@ -120,22 +120,22 @@ class Player(pygame.sprite.Sprite):
         elif event.type == pygame.KEYUP:
             if event.key == pygame.K_d and self.movement_x > 0:
                 self.stop()
-                self.image = gm.STAND_R
+                self.image = pygame.transform.scale(gm.STAND_R, (42, 50))
             if event.key == pygame.K_a and self.movement_x < 0:
                 self.stop()
-                self.image = gm.STAND_L
+                self.image = pygame.transform.scale(gm.STAND_L, (42, 50))
             if event.key == pygame.K_w and self.movement_y < 0:
                 self.stop()
-                self.image = gm.STAND_R
+                self.image = pygame.transform.scale(gm.STAND_R, (42, 50))
             if event.key == pygame.K_s and self.movement_y > 0:
                 self.stop()
-                self.image = gm.STAND_L
+                self.image = pygame.transform.scale(gm.STAND_L, (42, 50))
 
     def _move(self, image_list):
         if self._count < 4:
-            self.image = image_list[0]
+            self.image = pygame.transform.scale(image_list[0], (42, 50))
         elif self._count < 8:
-            self.image = image_list[1]
+            self.image = pygame.transform.scale(image_list[1], (42, 50))
 
         if self._count >= 8:
             self._count = 0
@@ -151,9 +151,9 @@ class Player(pygame.sprite.Sprite):
             if self.movement_y > 0:
                 self.rect.bottom = p.rect.top
                 if self.direction_of_movement == 'left' and self.movement_x == 0:
-                    self.image = gm.STAND_L
+                    self.image = pygame.transform.scale(gm.STAND_L, (42, 50))
                 if self.direction_of_movement == 'right' and self.movement_x == 0:
-                    self.image = gm.STAND_R
+                    self.image = pygame.transform.scale(gm.STAND_R, (42, 50))
             if self.movement_y < 0:
                 self.rect.top = p.rect.bottom
 
