@@ -1,5 +1,8 @@
+import pygame
+
+
 # Klasa bazowa naszych obiektow/scian
-class SquareWall:
+class SquareWall(pygame.sprite.Sprite):
     def __init__(self, file_image, side, rect_x, rect_y):
         super().__init__()
         self.side = side

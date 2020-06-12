@@ -1,6 +1,7 @@
 import pygame
 import game_config as gm
 from models.Bomb import Bomb
+from models.Explosion import Explosion
 
 
 # Klasa gracza
@@ -41,7 +42,6 @@ class Player(pygame.sprite.Sprite):
         self.movement_y = 0
 
     def set_bomb(self):
-        print(len(self.level.set_of_bombs))
         if len(self.level.set_of_bombs) < 3:
             x = int(self.rect.x / gm.SQUARE_SIZE) * gm.SQUARE_SIZE
             y = int(self.rect.y / gm.SQUARE_SIZE) * gm.SQUARE_SIZE
@@ -60,11 +60,16 @@ class Player(pygame.sprite.Sprite):
         # ----------------------- KOLIZJA --------------------------- #
         colliding_obstacles = pygame.sprite.spritecollide(self, self.level.set_of_obstacles, False)
         colliding_squares = pygame.sprite.spritecollide(self, self.level.set_of_squares, False)
-        colliding_bombs = pygame.sprite.spritecollide(self, self.level.set_of_bombs, False)
-        print(colliding_bombs)
-        for bomb in self.level.set_of_bombs:
-            if not (bomb.rect.x + gm.SQUARE_SIZE / 4 <= self.rect.x <= bomb.rect.x - gm.SQUARE_SIZE * 3 / 4) and not (bomb.rect.y + gm.SQUARE_SIZE / 4 >= self.rect.y >= bomb.rect.y - gm.SQUARE_SIZE * 3 / 4):
-                self._collide(colliding_bombs)
+        # colliding_bombs = pygame.sprite.spritecollide(self, self.level.set_of_bombs, False)
+
+        # for bomb in self.level.set_of_bombs:
+        #     if not (bomb.rect.x + gm.SQUARE_SIZE / 4 <= self.rect.x <= bomb.rect.x - gm.SQUARE_SIZE * 3 / 4):
+        #             # TODO Trzeba zrobić tak żeby po wyjściu z bomby była kolizja
+        #             # and not (bomb.rect.y >= self.rect.y >= bomb.rect.y):
+        #         self._collide(colliding_bombs)
+
+        if self.level.get_doors_active and self.rect.colliderect(self.level.doors.rect):
+            self.level.running = False
 
         self._collide(colliding_squares)
         self._collide(colliding_obstacles)
@@ -88,13 +93,14 @@ class Player(pygame.sprite.Sprite):
         for bomb in self.level.set_of_bombs:
             if event.type == bomb.explosion_event:
                 pygame.time.set_timer(bomb.explosion_event, 0)
+                self._create_explosions(bomb.rect.x, bomb.rect.y)
                 bomb.kill()
-                # explosion = Explosion(x, y)
-                # self.level.set_of_explosions.add(explosion)
 
         for explosion in self.level.set_of_explosions:
             if event.type == explosion.explosion_event:
-                pass
+                pygame.time.set_timer(explosion.explosion_event, 0)
+                explosion.kill()
+
 
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_d:
@@ -150,3 +156,16 @@ class Player(pygame.sprite.Sprite):
                     self.image = gm.STAND_R
             if self.movement_y < 0:
                 self.rect.top = p.rect.bottom
+
+    def _create_explosions(self, x, y):
+        explosions = [
+            Explosion(x, y, 'center', 0),
+            Explosion(x, y - gm.SQUARE_SIZE, 'corner', 90),
+            Explosion(x - gm.SQUARE_SIZE, y, 'corner', 180),
+            Explosion(x, y + gm.SQUARE_SIZE, 'corner', 270),
+            Explosion(x + gm.SQUARE_SIZE, y, 'corner', 0)
+        ]
+
+        for explosion in explosions:
+            self.level.set_of_explosions.add(explosion)
+            pygame.time.set_timer(explosion.explosion_event, 200)
