@@ -1,5 +1,4 @@
 import pygame
-import time
 import game_config as gm
 from models.Bomb import Bomb
 
@@ -42,9 +41,14 @@ class Player(pygame.sprite.Sprite):
         self.movement_y = 0
 
     def set_bomb(self):
+        print(len(self.level.set_of_bombs))
         if len(self.level.set_of_bombs) < 3:
             x = int(self.rect.x / gm.SQUARE_SIZE) * gm.SQUARE_SIZE
             y = int(self.rect.y / gm.SQUARE_SIZE) * gm.SQUARE_SIZE
+            # sprawdzamy czy juz postawilismy bombe
+            for bomb in self.level.set_of_bombs:
+                if bomb.rect.x == x and bomb.rect.y == y:
+                    return
             bomb = Bomb(gm.BOMB_ITEM[0], x, y)
             self.level.set_of_bombs.add(bomb)
             pygame.time.set_timer(bomb.explosion_event, 2000)
@@ -52,39 +56,18 @@ class Player(pygame.sprite.Sprite):
     def update(self):
         self.rect.x += self.movement_x  # odpowiada za ruch na osi x
         self.rect.y += self.movement_y  # odpowiada za ruch na osi y
-        # ------------KOLIZJA---------------------------
-        ##collids= []
+
+        # ----------------------- KOLIZJA --------------------------- #
         colliding_obstacles = pygame.sprite.spritecollide(self, self.level.set_of_obstacles, False)
         colliding_squares = pygame.sprite.spritecollide(self, self.level.set_of_squares, False)
-        ##collids.append(colliding_squares)
+        colliding_bombs = pygame.sprite.spritecollide(self, self.level.set_of_bombs, False)
+        print(colliding_bombs)
+        for bomb in self.level.set_of_bombs:
+            if not (bomb.rect.x + gm.SQUARE_SIZE / 4 <= self.rect.x <= bomb.rect.x - gm.SQUARE_SIZE * 3 / 4) and not (bomb.rect.y + gm.SQUARE_SIZE / 4 >= self.rect.y >= bomb.rect.y - gm.SQUARE_SIZE * 3 / 4):
+                self._collide(colliding_bombs)
 
-        for p in colliding_obstacles:
-            if self.movement_x > 0:
-                self.rect.right = p.rect.left
-            if self.movement_x < 0:
-                self.rect.left = p.rect.right
-            if self.movement_y > 0:
-                self.rect.bottom = p.rect.top
-                if self.direction_of_movement == 'left' and self.movement_x == 0:
-                    self.image = gm.STAND_L
-                if self.direction_of_movement == 'right' and self.movement_x == 0:
-                    self.image = gm.STAND_R
-            if self.movement_y < 0:
-                self.rect.top = p.rect.bottom
-
-        for p in colliding_squares:
-            if self.movement_x > 0:
-                self.rect.right = p.rect.left
-            if self.movement_x < 0:
-                self.rect.left = p.rect.right
-            if self.movement_y > 0:
-                self.rect.bottom = p.rect.top
-                if self.direction_of_movement == 'left' and self.movement_x == 0:
-                    self.image = gm.STAND_L
-                if self.direction_of_movement == 'right' and self.movement_x == 0:
-                    self.image = gm.STAND_R
-            if self.movement_y < 0:
-                self.rect.top = p.rect.bottom
+        self._collide(colliding_squares)
+        self._collide(colliding_obstacles)
 
         if self.movement_x > 0:  # prawo
             self._move(gm.IMAGES_R)
@@ -106,6 +89,12 @@ class Player(pygame.sprite.Sprite):
             if event.type == bomb.explosion_event:
                 pygame.time.set_timer(bomb.explosion_event, 0)
                 bomb.kill()
+                # explosion = Explosion(x, y)
+                # self.level.set_of_explosions.add(explosion)
+
+        for explosion in self.level.set_of_explosions:
+            if event.type == explosion.explosion_event:
+                pass
 
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_d:
@@ -146,3 +135,18 @@ class Player(pygame.sprite.Sprite):
             self._count = 0
         else:
             self._count += 1
+
+    def _collide(self, objects):
+        for p in objects:
+            if self.movement_x > 0:
+                self.rect.right = p.rect.left
+            if self.movement_x < 0:
+                self.rect.left = p.rect.right
+            if self.movement_y > 0:
+                self.rect.bottom = p.rect.top
+                if self.direction_of_movement == 'left' and self.movement_x == 0:
+                    self.image = gm.STAND_L
+                if self.direction_of_movement == 'right' and self.movement_x == 0:
+                    self.image = gm.STAND_R
+            if self.movement_y < 0:
+                self.rect.top = p.rect.bottom

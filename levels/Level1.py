@@ -45,7 +45,7 @@ class Level1(Level):
 
         # musimy natomiast randomo usunac z listy wszystkich wolnych pol obiekty przeszkody destrukcyjne
         # bo bez tego nie mielibysmy pustych pol
-        spare_fields = self._random_empty_list(spare_fields, int(len(spare_fields) / 2))
+        spare_fields = self._random_empty_list(spare_fields, int(len(spare_fields) / 3), int(len(spare_fields) / 2))
 
         # tutaj wstawiamy destrukcyjne obiekty typu Obstacle
         self.append_model(self.set_of_obstacles, spare_fields, gm.PLATFORM_CELLS[1], 'obstacle')
@@ -54,12 +54,12 @@ class Level1(Level):
         self.doors = Doors(gm.LEVEL_DOORS[0], *random.choice(spare_fields))
 
         # dodawanie jakichś potworków
-        spare_fields = self._random_empty_list(self.list_diff(temp_spare_fields, spare_fields), self.monster_max_count)
+        spare_fields = self._random_empty_list(self.list_diff(temp_spare_fields, spare_fields), 1, self.monster_max_count)
         self.append_model(self.set_of_monsters, spare_fields, gm.MONSTER[0], 'monster')
 
     # funkcja usuwajaca losowa ilosc elementow z listy
-    def _random_empty_list(self, source_list, desired_length):
-        return random.sample(source_list, random.randint(0, desired_length))
+    def _random_empty_list(self, source_list, start, desired_length):
+        return random.sample(source_list, random.randint(start, desired_length))
 
     def list_diff(level, first_list, second_list):
         return [x for x in first_list if x not in second_list]
