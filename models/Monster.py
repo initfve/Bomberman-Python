@@ -1,5 +1,4 @@
 from random import choice
-from random import choice
 
 import pygame
 import game_config as gm

@@ -20,13 +20,15 @@ class Game:
         self.player = Player(gm.STAND_R)
         self.current_level = Level1(self.player)
         self.player.level = self.current_level
-        self.player.rect.center = self.screen.get_rect().center
+        # ustawiamy gracza w lewym górnym
+        self.player.rect.x = 64
+        self.player.rect.y = 64
 
     def start(self):
         # głowna pętla gry
         window_open = True
         while window_open:
-            self.screen.blit(gm.BACKGROUND,[0,0])
+            self.screen.blit(gm.BACKGROUND, [0, 0])
             # pętla zdarzeń
             for event in pygame.event.get():
                 if event.type == pygame.KEYDOWN:

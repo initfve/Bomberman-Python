@@ -20,6 +20,7 @@ class Level1(Level):
     def create_board(self):
         borders = []
         spare_fields = []
+        player_starter_fields = [[64, 64, 64], [64, 64, 128], [64, 128, 64]]
 
         # generacja pól
         for i in range(int(gm.WIDTH / gm.SQUARE_SIZE)):
@@ -32,6 +33,9 @@ class Level1(Level):
 
                 # reszte pol dodajemy do listy wolnych pol
                 spare_fields.append([gm.SQUARE_SIZE, i * gm.SQUARE_SIZE, j * gm.SQUARE_SIZE])
+
+        # usuwamy pola startowe z wolnych pól
+        spare_fields = [x for x in spare_fields if x not in player_starter_fields]
 
         # skoro juz wiemy gdzie sa bordery chcemy wstawic w to miejsce obiekt
         self.append_model(self.set_of_squares, borders, gm.PLATFORM_CELLS[0], 'border')

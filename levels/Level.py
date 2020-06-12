@@ -16,11 +16,11 @@ class Level:
             p.update()
 
     def draw(self, surface):
+        self.doors.draw(surface)
         for p in self.set_of_squares:
             p.draw(surface)
         for p in self.set_of_obstacles:
             p.draw(surface)
         for p in self.set_of_monsters:
             p.draw(surface)
-        self.doors.draw(surface)
         self.set_of_bombs.draw(surface)

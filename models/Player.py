@@ -14,7 +14,7 @@ class Player(pygame.sprite.Sprite):
         self.movement_x = 0
         self.movement_y = 0
         self._count = 0
-        self.n_bomb = 5
+        self.bombs_count = 3
         self.player_level = 1
         self.lifes = 3
         self.score = 0
@@ -42,18 +42,12 @@ class Player(pygame.sprite.Sprite):
         self.movement_y = 0
 
     def set_bomb(self):
-        if self.n_bomb > 0:
-            self.n_bomb -= 1
-            bomb = Bomb(gm.BOMB_ITEM[0],self.rect.centerx,self.rect.centery)
+        if len(self.level.set_of_bombs) < 3:
+            x = int(self.rect.x / gm.SQUARE_SIZE) * gm.SQUARE_SIZE
+            y = int(self.rect.y / gm.SQUARE_SIZE) * gm.SQUARE_SIZE
+            bomb = Bomb(gm.BOMB_ITEM[0], x, y)
             self.level.set_of_bombs.add(bomb)
-            if bomb.time_life == 0:
-                bomb.kill()
-
-
-
-
-
-
+            pygame.time.set_timer(bomb.explosion_event, 2000)
 
     def update(self):
         self.rect.x += self.movement_x  # odpowiada za ruch na osi x
@@ -106,9 +100,13 @@ class Player(pygame.sprite.Sprite):
 
     def draw(self, surface):
         surface.blit(self.image, self.rect)
-        # pygame.draw.rect(surface,(255,0,0),self.rect)
 
     def get_event(self, event):
+        for bomb in self.level.set_of_bombs:
+            if event.type == bomb.explosion_event:
+                pygame.time.set_timer(bomb.explosion_event, 0)
+                bomb.kill()
+
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_d:
                 self.stop()
