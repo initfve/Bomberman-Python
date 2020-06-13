@@ -22,6 +22,10 @@ class Level:
             self._doors_active = True
 
         for explosion in self.set_of_explosions:
+            if explosion.rect.colliderect(self.player.rect):
+                self.running = False
+                self.player.current_health -= 1
+
             for monster in self.set_of_monsters.copy():
                 if explosion.rect.colliderect(monster.rect):
                     self.set_of_monsters.remove(monster)
