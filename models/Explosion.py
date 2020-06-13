@@ -1,11 +1,11 @@
 import pygame
 import game_config as gm
+from random import randint
 
 
 class Explosion(pygame.sprite.Sprite):
     def __init__(self, x, y, name, angle):
         super().__init__()
-        self.explosion_event = pygame.USEREVENT + 1
         if name == 'center':
             self.image = gm.FIRE_ITEM[0]
         elif name == 'line':
@@ -15,6 +15,7 @@ class Explosion(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
+        self.explosion_event = None
 
     def draw(self, surface):
         surface.blit(self.image, self.rect)

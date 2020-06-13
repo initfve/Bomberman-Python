@@ -33,6 +33,7 @@ class Level:
             self.set_of_obstacles = [obstacle for obstacle in self.set_of_obstacles if not explosion.rect.colliderect(obstacle.rect)]
 
     def draw(self, surface):
+        self.doors.draw(surface)
         for p in self.set_of_explosions:
             p.draw(surface)
         for p in self.set_of_squares:
@@ -41,7 +42,6 @@ class Level:
             p.draw(surface)
         for p in self.set_of_monsters:
             p.draw(surface)
-        self.doors.draw(surface)
         self.set_of_bombs.draw(surface)
 
     def get_doors_active(self):

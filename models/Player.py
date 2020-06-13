@@ -61,15 +61,16 @@ class Player(pygame.sprite.Sprite):
         # ----------------------- KOLIZJA --------------------------- #
         colliding_obstacles = pygame.sprite.spritecollide(self, self.level.set_of_obstacles, False)
         colliding_squares = pygame.sprite.spritecollide(self, self.level.set_of_squares, False)
+
+        # TODO Trzeba zrobić tak żeby po wyjściu z bomby była kolizja
         # colliding_bombs = pygame.sprite.spritecollide(self, self.level.set_of_bombs, False)
 
         # for bomb in self.level.set_of_bombs:
         #     if not (bomb.rect.x + gm.SQUARE_SIZE / 4 <= self.rect.x <= bomb.rect.x - gm.SQUARE_SIZE * 3 / 4):
-        #             # TODO Trzeba zrobić tak żeby po wyjściu z bomby była kolizja
         #             # and not (bomb.rect.y >= self.rect.y >= bomb.rect.y):
         #         self._collide(colliding_bombs)
 
-        if self.level.get_doors_active and self.rect.colliderect(self.level.doors.rect):
+        if self.level.get_doors_active() and self.rect.colliderect(self.level.doors.rect):
             self.level.running = False
 
         self._collide(colliding_squares)
@@ -94,14 +95,13 @@ class Player(pygame.sprite.Sprite):
         for bomb in self.level.set_of_bombs:
             if event.type == bomb.explosion_event:
                 pygame.time.set_timer(bomb.explosion_event, 0)
-                self._create_explosions(bomb.rect.x, bomb.rect.y)
+                self._create_explosions(bomb.rect.x, bomb.rect.y, bomb.fire_event)
                 bomb.kill()
 
         for explosion in self.level.set_of_explosions:
             if event.type == explosion.explosion_event:
                 pygame.time.set_timer(explosion.explosion_event, 0)
                 explosion.kill()
-
 
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_d:
@@ -158,7 +158,7 @@ class Player(pygame.sprite.Sprite):
             if self.movement_y < 0:
                 self.rect.top = p.rect.bottom
 
-    def _create_explosions(self, x, y):
+    def _create_explosions(self, x, y, event_id):
         explosions = [
             Explosion(x, y, 'center', 0),
             Explosion(x, y - gm.SQUARE_SIZE, 'corner', 90),
@@ -168,5 +168,6 @@ class Player(pygame.sprite.Sprite):
         ]
 
         for explosion in explosions:
+            explosion.explosion_event = event_id
             self.level.set_of_explosions.add(explosion)
-            pygame.time.set_timer(explosion.explosion_event, 200)
+            pygame.time.set_timer(event_id, 200)

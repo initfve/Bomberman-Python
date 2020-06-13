@@ -39,7 +39,7 @@ class Game:
         # UI
         start_button = gui.elements.UIButton(
             relative_rect=pygame.Rect(gm.WIDTH - 100, gm.HEIGHT - gm.UIHEIGHT, 100, gm.UIHEIGHT),
-            text='PAUSE',
+            text='PAUZA',
             manager=self.manager)
 
         gui.elements.UIScreenSpaceHealthBar(
@@ -95,9 +95,9 @@ class Game:
                         if event.ui_element == start_button:
                             self._toggle_pause()
                             if self.paused:
-                                start_button.set_text('PLAY')
+                                start_button.set_text('GRAJ')
                             else:
-                                start_button.set_text('PAUSE')
+                                start_button.set_text('PAUZA')
 
                 self.manager.process_events(event)
                 self.player.get_event(event)
