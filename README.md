@@ -22,7 +22,7 @@ pip install pygame_gui -U
 If you are working with PyCharm, you should configure Python environment. Script path is:
 
 ```
-$root_path\Game.py
+Game.py
 ```
 
 ## Authors
