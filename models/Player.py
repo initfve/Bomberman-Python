@@ -13,6 +13,7 @@ class Player(pygame.sprite.Sprite):
         self.items = {}
         self.movement_x = 0
         self.movement_y = 0
+        self.bomb_power = None
         self._count = 0
         self.bombs_count = 3
         self.player_level = 1
@@ -161,13 +162,30 @@ class Player(pygame.sprite.Sprite):
                 self.rect.top = p.rect.bottom
 
     def _create_explosions(self, x, y, event_id):
-        explosions = [
-            Explosion(x, y, 'center', 0),
-            Explosion(x, y - gm.SQUARE_SIZE, 'corner', 90),
-            Explosion(x - gm.SQUARE_SIZE, y, 'corner', 180),
-            Explosion(x, y + gm.SQUARE_SIZE, 'corner', 270),
-            Explosion(x + gm.SQUARE_SIZE, y, 'corner', 0)
-        ]
+        explosions = [Explosion(x, y, 'center', 0)]
+        sides = ['right', 'top', 'left', 'bottom']
+
+        for side in range(4):
+            angle = 90 * side
+            for power in range(self.bomb_power):
+                if power == self.bomb_power - 1:
+                    if sides[side] == 'right':
+                        explosions.append(Explosion(x + gm.SQUARE_SIZE * (power + 1), y, 'corner', angle))
+                    if sides[side] == 'top':
+                        explosions.append(Explosion(x, y - gm.SQUARE_SIZE * (power + 1), 'corner', angle))
+                    if sides[side] == 'left':
+                        explosions.append(Explosion(x - gm.SQUARE_SIZE * (power + 1), y, 'corner', angle))
+                    if sides[side] == 'bottom':
+                        explosions.append(Explosion(x, y + gm.SQUARE_SIZE * (power + 1), 'corner', angle))
+                else:
+                    if sides[side] == 'right':
+                        explosions.append(Explosion(x + gm.SQUARE_SIZE * (power + 1), y, 'line', angle))
+                    if sides[side] == 'top':
+                        explosions.append(Explosion(x, y - gm.SQUARE_SIZE * (power + 1), 'line', angle))
+                    if sides[side] == 'left':
+                        explosions.append(Explosion(x - gm.SQUARE_SIZE * (power + 1), y, 'line', angle))
+                    if sides[side] == 'bottom':
+                        explosions.append(Explosion(x, y + gm.SQUARE_SIZE * (power + 1), 'line', angle))
 
         for explosion in explosions:
             explosion.explosion_event = event_id

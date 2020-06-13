@@ -3,11 +3,11 @@ import game_config as gm
 
 # import modeli i klasy bazowej level
 from levels.Level import Level
+from models.Boost import Boost
 from models.Border import Border
 from models.Doors import Doors
 from models.Monster import Monster
 from models.Obstacle import Obstacle
-from models.Bomb import Bomb
 
 
 class Level1(Level):
@@ -52,6 +52,12 @@ class Level1(Level):
 
         # dodawanie drzwi
         self.doors = Doors(gm.LEVEL_DOORS[0], *random.choice(spare_fields))
+
+        # coinflip boosts
+        if random.randint(0, 1):
+            self.boosts.append(Boost(gm.BOOSTS[0], 'stronger_bomb', *random.choice(spare_fields)))
+        if random.randint(0, 1):
+            self.boosts.append(Boost(gm.BOOSTS[1], 'health_potion', *random.choice(spare_fields)))
 
         # dodawanie jakichś potworków
         spare_fields = self._random_empty_list(self.list_diff(temp_spare_fields, spare_fields), 1, self.monster_max_count)
