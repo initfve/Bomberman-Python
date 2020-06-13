@@ -69,7 +69,7 @@ class Level1(Level):
         if object_type == 'monster':
             for field in fields_list:
                 # 4 to jest maksymalna liczba potworów do losowego renderowania
-                border_object = Monster(texture, 4, *field)
+                border_object = Monster(texture, 4, self, *field)
                 models_set.add(border_object)
         elif object_type == 'obstacle':
             for field in fields_list:

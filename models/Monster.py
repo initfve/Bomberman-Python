@@ -6,7 +6,7 @@ import game_config as gm
 
 # Klasa przeciwnika
 class Monster(pygame.sprite.Sprite):
-    def __init__(self, file_image, life_count, side, rect_x, rect_y):
+    def __init__(self, file_image, life_count, level, side, rect_x, rect_y):
         super().__init__()
         self.image = file_image
         self.rect = self.image.get_rect()
@@ -14,7 +14,7 @@ class Monster(pygame.sprite.Sprite):
         self.movementY = 0
         self._count = 0
         self._lifeCount = life_count
-        self.level = None
+        self.level = level
         self.directions = ((-1, 0), (1, 0), (0, -1), (0, 1))
         self.direction = choice(self.directions)
         self.side = side
@@ -32,6 +32,7 @@ class Monster(pygame.sprite.Sprite):
         colliding_player = pygame.sprite.spritecollide(self, {self.level.player}, False)
 
         if colliding_player:
+            self.level.player.current_health -= 1
             self.level.running = False
 
         self._define_direction([colliding_obstacles, colliding_squares, colliding_player])

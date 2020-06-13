@@ -19,8 +19,5 @@ class Explosion(pygame.sprite.Sprite):
     def draw(self, surface):
         surface.blit(self.image, self.rect)
 
-    def update(self):
-        pass
-
     def _rotate_image(self, image, angle):
         return pygame.transform.rotate(image, angle)
