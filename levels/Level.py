@@ -44,6 +44,8 @@ class Level:
 
     def draw(self, surface):
         self.doors.draw(surface)
+        for p in self.boosts:
+            p.draw(surface)
         for p in self.set_of_explosions:
             p.draw(surface)
         for p in self.set_of_squares:
@@ -51,8 +53,6 @@ class Level:
         for p in self.set_of_obstacles:
             p.draw(surface)
         for p in self.set_of_monsters:
-            p.draw(surface)
-        for p in self.boosts:
             p.draw(surface)
         self.set_of_bombs.draw(surface)
 
