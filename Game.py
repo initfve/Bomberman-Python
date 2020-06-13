@@ -8,7 +8,7 @@ from levels.Level1 import Level1
 
 
 class Game:
-    def __init__(self, lives=3, score=0):
+    def __init__(self, lives=3, score=0, bomb_power=1):
         pygame.init()
         # centrowanie okna
         os.environ['SDL_VIDEO_CENTERED'] = '1'
@@ -21,6 +21,7 @@ class Game:
         self.player = Player(gm.STAND_R)
         self.player.score = score
         self.player.current_health = lives
+        self.player.bomb_power = bomb_power
         self.current_level = Level1(self.player)
         self.player.level = self.current_level
         # ustawiamy gracza w lewym górnym
@@ -122,7 +123,7 @@ class Game:
 
             if restart:
                 pygame.time.wait(2000)
-                Game(self.player.current_health, self.player.score).start()
+                Game(self.player.current_health, self.player.score, self.player.bomb_power).start()
                 pygame.quit()
                 return
             elif lost:
@@ -134,6 +135,7 @@ class Game:
             if not self.current_level.running:
                 self._toggle_pause()
                 if self.player.current_health > 0:
+                    self.player.bomb_power = 1
                     restart_modal.show()
                     restart = True
                 else:
