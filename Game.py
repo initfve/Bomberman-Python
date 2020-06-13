@@ -69,9 +69,11 @@ class Game:
 
         clock = pygame.time.Clock()
 
+        restart = False
+        lost = False
+
         # głowna pętla gry
         while self.running:
-            score.full_redraw()
             time_delta = clock.tick(60) / 1000.0
             self.screen.blit(gm.BACKGROUND, [0, 0])
 
@@ -115,20 +117,24 @@ class Game:
             pygame.display.flip()
             self.clock.tick(30)
 
+            if restart:
+                pygame.time.wait(2000)
+                Game(self.player.current_health, self.player.score).start()
+                pygame.quit()
+            elif lost:
+                pygame.time.wait(2000)
+                pygame.quit()
+
             # koniec gry jak nas monster zlapie np.
             if not self.current_level.running:
                 self._toggle_pause()
                 if self.player.current_health > 0:
                     restart_modal.show()
-                    restart_modal.full_redraw()
-                    pygame.time.wait(2000)
-                    Game(self.player.current_health, self.player.score).start()
-                    pygame.quit()
+                    restart = True
                 else:
                     lost_modal.show()
-                    lost_modal.full_redraw()
-                    pygame.time.wait(2000)
-                pygame.quit()
+                    lost = True
+
 
 
 game = Game()
