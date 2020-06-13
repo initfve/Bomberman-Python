@@ -72,6 +72,8 @@ class Player(pygame.sprite.Sprite):
 
         if self.level.get_doors_active() and self.rect.colliderect(self.level.doors.rect):
             self.level.running = False
+            # dziesięć punktów dla gryffindoru za przejście przez drzwi
+            self.score += 10
 
         self._collide(colliding_squares)
         self._collide(colliding_obstacles)
