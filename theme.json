@@ -26,6 +26,13 @@
       "filled_bar": "#f4251b",
       "unfilled_bar": "#CCCCCC"
     },
+    "font": {
+      "name": "Roboto",
+      "size": "14",
+      "bold": "1",
+      "regular_path": "fonts/Roboto-Regular.ttf",
+      "bold_path": "fonts/Roboto-Bold.ttf"
+    },
     "misc": {
       "hover_height": "5",
       "border_width": "0"

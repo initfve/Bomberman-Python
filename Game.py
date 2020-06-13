@@ -9,9 +9,10 @@ from levels.Level1 import Level1
 
 class Game:
     def __init__(self, lives=3, score=0):
+        pygame.init()
         # centrowanie okna
         os.environ['SDL_VIDEO_CENTERED'] = '1'
-        pygame.init()
+        # tytuł
         pygame.display.set_caption('Bomberman')
 
         # ustawienia ekranu i gry
@@ -83,9 +84,11 @@ class Game:
                     if event.key == pygame.K_ESCAPE:
                         self.running = False
                         pygame.quit()
+                        return
                 elif event.type == pygame.QUIT:
                     self.running = False
                     pygame.quit()
+                    return
 
                 if event.type == pygame.USEREVENT:
                     if event.user_type == gui.UI_BUTTON_PRESSED:
@@ -121,9 +124,11 @@ class Game:
                 pygame.time.wait(2000)
                 Game(self.player.current_health, self.player.score).start()
                 pygame.quit()
+                return
             elif lost:
                 pygame.time.wait(2000)
                 pygame.quit()
+                return
 
             # koniec gry jak nas monster zlapie np.
             if not self.current_level.running:
