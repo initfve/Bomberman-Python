@@ -21,7 +21,6 @@ class Level:
         if len(self.set_of_monsters) == 0:
             self._doors_active = True
 
-        print(self.player.score)
         for explosion in self.set_of_explosions:
             for monster in self.set_of_monsters.copy():
                 if explosion.rect.colliderect(monster.rect):

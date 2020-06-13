@@ -46,22 +46,15 @@ class Game:
             manager=self.manager,
             sprite_to_monitor=self.player)
 
-        score = gui.elements.UITextBox(f'Wynik: {self.player.score}',
-                                       relative_rect=pygame.Rect(int(gm.WIDTH / 2) - 40,
-                                                                 gm.HEIGHT - gm.UIHEIGHT, 120,
-                                                                 gm.UIHEIGHT),
-                                       manager=self.manager)
-        score.disable()
-
         lost_modal = gui.elements.UITextBox('Przegrałeś - Koniec gry',
                                             relative_rect=pygame.Rect(int(gm.WIDTH / 2) - 100,
                                                                       int(gm.HEIGHT / 2) - 20, 200, 40),
                                             manager=self.manager)
 
-        restart_modal = gui.elements.UITextBox('Straciłeś życie<br>Restart...',
+        restart_modal = gui.elements.UITextBox('Restart...',
                                                relative_rect=pygame.Rect(int(gm.WIDTH / 2) - 80,
-                                                                         int(gm.HEIGHT / 2) - 40, 140,
-                                                                         80),
+                                                                         int(gm.HEIGHT / 2) - 20, 140,
+                                                                         40),
                                                manager=self.manager)
 
         restart_modal.hide()
@@ -74,6 +67,13 @@ class Game:
 
         # głowna pętla gry
         while self.running:
+            score = gui.elements.UITextBox(f'Wynik: {self.player.score}',
+                                           relative_rect=pygame.Rect(int(gm.WIDTH / 2) - 40,
+                                                                     gm.HEIGHT - gm.UIHEIGHT, 120,
+                                                                     gm.UIHEIGHT),
+                                           manager=self.manager)
+            score.disable()
+
             time_delta = clock.tick(60) / 1000.0
             self.screen.blit(gm.BACKGROUND, [0, 0])
 
@@ -135,6 +135,7 @@ class Game:
                     lost_modal.show()
                     lost = True
 
+            score.kill()
 
 
 game = Game()
