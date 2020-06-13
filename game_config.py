@@ -13,7 +13,8 @@ LIGHTGREEN = pygame.color.THECOLORS['lightgreen']
 
 # okno główne
 os.environ['SDL_VIDEO_CENTERED'] = '1'    # centrowanie okna
-SIZESCREEN = WIDTH, HEIGHT = 1344, 704
+SIZESCREEN = WIDTH, HEIGHT = 1344, 736
+UISIZE = UIWIDTH, UIHEIGHT = WIDTH, 32
 SQUARE_SIZE = 64
 screen = pygame.display.set_mode(SIZESCREEN)
 

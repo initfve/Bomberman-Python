@@ -10,10 +10,11 @@ Clone our project to your directory.
 git clone git@github.com:wa12rior/Bomberman-Python.git
 ```
 
-Use the package manager [`pip`](https://pip.pypa.io/en/stable/) to install [`pygame`](https://www.pygame.org/wiki/GettingStarted).
+Use the package manager [`pip`](https://pip.pypa.io/en/stable/) to install [`pygame`](https://www.pygame.org/wiki/GettingStarted) and [`pygame_gui`](https://pygame-gui.readthedocs.io/en/latest/index.html).
 
 ```bash
 pip install pygame
+pip install pygame_gui -U
 ```
 
 ## Usage

@@ -16,7 +16,8 @@ class Player(pygame.sprite.Sprite):
         self._count = 0
         self.bombs_count = 3
         self.player_level = 1
-        self.lifes = 3
+        self.current_health = 3
+        self.health_capacity = 3
         self.score = 0
         self.level = None
         self.direction_of_movement = 'right'
